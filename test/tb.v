@@ -79,10 +79,9 @@ module tb ();
     end
    
     initial
-    #800 $finish;
-
+       #800 $finish;
+    
     initial begin
-    $monitor("Time=%0d | ui_in=%b, uio_in=%b | uo_out=%b", $time, ui_in, uio_in, uo_out);
-end
-   
+       $monitor("Time=%0d | ui_in=%b, uio_in=%b | uo_out=%b", $time, ui_in, uio_in, uo_out);
+    end
 endmodule

@@ -86,5 +86,3 @@ module tb ();
 end
    
 endmodule
-
-endmodule

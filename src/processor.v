@@ -30,7 +30,7 @@ module tt_um_processor (
 
     assign IN1 = ui_in[3:0]; // 4-bit Input 01
     assign IN2 = uio_in[3:0]; // 4-bit Input 02
-    assign rst_n = reset; // reset active low
+    assign reset = rst_n; // reset active low
     assign uio_oe = 8'b0;  // Assuming uio is always input in this context
     assign uio_out [7:1] = 7'b0; // Assign remaining bits to zero
     wire _unused = &{ena};

@@ -32,7 +32,7 @@ module tt_um_processor (
 
     // Signal declarations
     wire [2:0] opcode;             // Opcode field of the instruction
-    wire [2:0] rd, rs1, rs2;       // Destination and source registers
+    wire [2:0] regw, reg1, reg2;       // Destination and source registers
     wire [3:0] func;               // Function of the opcode
     wire [3:0] reg_data1;   // Data from register 1
     wire [3:0] reg_data2;   // Data from register 2

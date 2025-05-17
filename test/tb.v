@@ -45,44 +45,6 @@ module tb ();
         clk = 0;
         forever #20 clk = ~clk;
     end
-
-    initial begin
-        rst_n = 0; // Reset the processor
-        #50 rst_n = 1;
-        #40 ui_in = 4'b0000; uio_in = 4'b0000;
-        #40 ui_in = 4'b0000; uio_in = 4'b0001;
-        #40 ui_in = 4'b0000; uio_in = 4'b0010;
-        #40 ui_in = 4'b0000; uio_in = 4'b0011;
-        #40 ui_in = 4'b0000; uio_in = 4'b0100;
-        #40 ui_in = 4'b0000; uio_in = 4'b0101;
-        #40 ui_in = 4'b0000; uio_in = 4'b0110;
-        #40 ui_in = 4'b0000; uio_in = 4'b0111;
-        #40 ui_in = 4'b0000; uio_in = 4'b1000;
-        #40 ui_in = 4'b0000; uio_in = 4'b1001;
-        #40 ui_in = 4'b0000; uio_in = 4'b1010;
-        #40 ui_in = 4'b0000; uio_in = 4'b1011;
-        #40 ui_in = 4'b0000; uio_in = 4'b1100;
-        #40 ui_in = 4'b0000; uio_in = 4'b1101;
-        #40 ui_in = 4'b0000; uio_in = 4'b1110;
-        #40 ui_in = 4'b0000; uio_in = 4'b1111;
-        ////////////////////////////////
-        #40 uio_in = 4'b0000; ui_in = 4'b0000;
-        #40 uio_in = 4'b0000; ui_in = 4'b0001;
-        #40 uio_in = 4'b0000; ui_in = 4'b0010;
-        #40 uio_in = 4'b0000; ui_in = 4'b0011;
-        #40 uio_in = 4'b0000; ui_in = 4'b0100;
-        #40 uio_in = 4'b0000; ui_in = 4'b0101;
-        #40 uio_in = 4'b0000; ui_in = 4'b0110;
-        #40 uio_in = 4'b0000; ui_in = 4'b0111;
-        #40 uio_in = 4'b0000; ui_in = 4'b1000;
-        #40 uio_in = 4'b0000; ui_in = 4'b1001;
-        #40 uio_in = 4'b0000; ui_in = 4'b1010;
-        #40 uio_in = 4'b0000; ui_in = 4'b1011;
-        #40 uio_in = 4'b0000; ui_in = 4'b1100;
-        #40 uio_in = 4'b0000; ui_in = 4'b1101;
-        #40 uio_in = 4'b0000; ui_in = 4'b1110;
-        #40 uio_in = 4'b0000; ui_in = 4'b1111;
-    end
    
     initial
        #800 $finish;

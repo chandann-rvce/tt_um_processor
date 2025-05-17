@@ -87,7 +87,7 @@ endmodule
 //////////////////////////////////////////////////////////////////////////////////
 module ALU(
     input wire [3:0] in1,
-    input wire  in2,
+    input wire [3:0] in2,
     input wire  alu_control,
     output reg [7:0] alu_result,
     output reg zero_flag

@@ -107,7 +107,8 @@ module ALU(
                             (alu_control == 4'b1100) ? ((in1 > in2) ? 8'b1 : 8'b0) :
                             (alu_control == 4'b1101) ? ((in1 == in2) ? 8'b1 : 8'b0) :
                             (alu_control == 4'b1110) ? {4'b0000, in1 << in2} :
-                            (alu_control == 4'b1111) ? {4'b0000, in1 >> in2} ;
+                            (alu_control == 4'b1111) ? {4'b0000, in1 >> in2} :
+                            8'd0;
 
         assign zero_flag = (alu_result == 8'b0) ? 1'b1 : 1'b0;
     end

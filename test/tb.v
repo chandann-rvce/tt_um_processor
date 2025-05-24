@@ -22,8 +22,18 @@ module tb ();
   wire [7:0] uo_out;
   wire [7:0] uio_out;
   wire [7:0] uio_oe;
+`ifdef GL_TEST
+  wire VPWR = 1'b1;
+  wire VGND = 1'b0;
+`endif
    
   tt_um_processor processor (
+
+    // Include power ports for the Gate Level test:
+`ifdef GL_TEST
+      .VPWR(VPWR),
+      .VGND(VGND),
+`endif
       .ui_in  (ui_in),    // Dedicated inputs
       .uo_out (uo_out),   // Dedicated outputs
       .uio_in (uio_in),   // IOs: Input path
@@ -35,15 +45,15 @@ module tb ();
   );
 
   
-    initial begin
-        clk = 0;
-        forever #20 clk = ~clk;
-    end
+    //initial begin
+       // clk = 0;
+       // forever #20 clk = ~clk;
+   // end
    
-    initial
-       #800 $finish;
+    //initial
+      // #800 $finish;
     
-    initial begin
-       $monitor("Time=%0d | ui_in=%b, uio_in=%b | uo_out=%b", $time, ui_in, uio_in, uo_out);
-    end
+   // initial begin
+      // $monitor("Time=%0d | ui_in=%b, uio_in=%b | uo_out=%b", $time, ui_in, uio_in, uo_out);
+    //end
 endmodule

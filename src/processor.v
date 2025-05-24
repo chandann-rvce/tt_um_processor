@@ -94,23 +94,23 @@ module ALU(
 );
     always @(*) begin
         case(alu_control)
-            4'b0000: alu_result = {4'b0000, in1 & in2};         // AND
-            4'b0001: alu_result = {4'b0000, in1 | in2};         // OR
-            4'b0010: alu_result = {4'b0000, in1 ^ in2};         // XOR
-            4'b0011: alu_result = {4'b0000, ~(in1 & in2)};      // NAND
-            4'b0100: alu_result = {4'b0000, ~(in1 | in2)};      // NOR
-            4'b0101: alu_result = {4'b0000, ~(in1 ^ in2)};      // XNOR
-            4'b0110: alu_result = {4'b0000, in1 + in2};          // ADD
-            4'b0111: alu_result = {4'b0000, in1 - in2};          // SUBTRACT
-            4'b1000: alu_result = in1 * in2;          // MULTIPLY
-            4'b1001: alu_result = ({4'b0000, in2} != 0) ? {4'b0000, in1} / {4'b0000, in2} : 8'hFF; // DIVIDE
-            4'b1010: alu_result = {4'b0000, in1 % in2};          // MODULUS
-            4'b1011: alu_result = (in1 < in2) ? 8'b1 : 8'b0; // LESS THAN
-            4'b1100: alu_result = (in1 > in2) ? 8'b1 : 8'b0; // GREATER THAN
-            4'b1101: alu_result = (in1 == in2) ? 8'b1 : 8'b0; // EQUAL TO
-            4'b1110: alu_result = {4'b0000, in1 << in2};         // SHIFT LEFT
-            4'b1111: alu_result = {4'b0000, in1 >> in2};         // SHIFT RIGHT
-            default: alu_result = 8'h00;
+            4'b0000: alu_result <= {4'b0000, in1 & in2};         // AND
+            4'b0001: alu_result <= {4'b0000, in1 | in2};         // OR
+            4'b0010: alu_result <= {4'b0000, in1 ^ in2};         // XOR
+            4'b0011: alu_result <= {4'b0000, ~(in1 & in2)};      // NAND
+            4'b0100: alu_result <= {4'b0000, ~(in1 | in2)};      // NOR
+            4'b0101: alu_result <= {4'b0000, ~(in1 ^ in2)};      // XNOR
+            4'b0110: alu_result <= {4'b0000, in1 + in2};          // ADD
+            4'b0111: alu_result <= {4'b0000, in1 - in2};          // SUBTRACT
+            4'b1000: alu_result <= in1 * in2;          // MULTIPLY
+            4'b1001: alu_result <= ({4'b0000, in2} != 0) ? {4'b0000, in1} / {4'b0000, in2} : 8'hFF; // DIVIDE
+            4'b1010: alu_result <= {4'b0000, in1 % in2};          // MODULUS
+            4'b1011: alu_result <= (in1 < in2) ? 8'b1 : 8'b0; // LESS THAN
+            4'b1100: alu_result <= (in1 > in2) ? 8'b1 : 8'b0; // GREATER THAN
+            4'b1101: alu_result <= (in1 == in2) ? 8'b1 : 8'b0; // EQUAL TO
+            4'b1110: alu_result <= {4'b0000, in1 << in2};         // SHIFT LEFT
+            4'b1111: alu_result <= {4'b0000, in1 >> in2};         // SHIFT RIGHT
+            default: alu_result <= 8'h00;
         endcase
 
         zero_flag = (alu_result == 8'b0) ? 1'b1 : 1'b0;

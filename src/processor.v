@@ -89,8 +89,8 @@ module ALU(
     input wire [3:0] in1,
     input wire [3:0] in2,
     input wire  alu_control,
-    output reg [7:0] alu_result,
-    output reg zero_flag
+    output wire [7:0] alu_result,
+    output wire zero_flag
 );
     always @(*) begin
         case(alu_control)
@@ -125,8 +125,8 @@ module REG_FILE(
     input [2:0] read_reg_num2,
     input [2:0] write_reg,
     input [7:0] write_data,
-    output reg [3:0] read_data1,
-    output reg [3:0] read_data2,
+    output wire [3:0] read_data1,
+    output wire [3:0] read_data2,
     input regwrite,
     input clk,
     input rst_n

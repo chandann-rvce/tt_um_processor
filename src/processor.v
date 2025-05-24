@@ -117,35 +117,34 @@ endmodule
 // Register File
 //////////////////////////////////////////////////////////////////////////////////
 module REG_FILE(
-    input [2:0] read_reg_num1,
-    input [2:0] read_reg_num2,
-    input [2:0] write_reg,
-    input [7:0] write_data,
+    input wire [2:0] read_reg_num1,
+    input wire [2:0] read_reg_num2,
+    input wire [2:0] write_reg,
+    input wire [7:0] write_data,
     output wire [3:0] read_data1,
     output wire [3:0] read_data2,
-    input regwrite,
-    input clk,
-    input rst_n
+    input wire regwrite,
+    input wire clk,
+    input wire rst_n
 );
     reg [3:0] reg_memory [7:0]; // 8 registers, each 4 bits wide
-
+  
+    assign  read_data1 = reg_memory[read_reg_num1];
+    assign  read_data2 = reg_memory[read_reg_num2];
+  
     always @(posedge clk or negedge rst_n) begin
         if (!rst_n) begin
             reg_memory[0] <= 4'd0;
-            reg_memory[1] <= 4'd1;
-            reg_memory[2] <= 4'd2;
-            reg_memory[3] <= 4'd3;
-            reg_memory[4] <= 4'd4;
-            reg_memory[5] <= 4'd5;
-            reg_memory[6] <= 4'd6;
-            reg_memory[7] <= 4'd7;
-        end else begin
-            read_data1 <= reg_memory[read_reg_num1];
-            read_data2 <= reg_memory[read_reg_num2];
-            if (regwrite) begin
+            reg_memory[1] <= 4'd0;
+            reg_memory[2] <= 4'd0;
+            reg_memory[3] <= 4'd0;
+            reg_memory[4] <= 4'd0;
+            reg_memory[5] <= 4'd0;
+            reg_memory[6] <= 4'd0;
+            reg_memory[7] <= 4'd0;
+        end else if (regwrite) begin
                 {reg_memory[write_reg+1],reg_memory[write_reg]} <= write_data;
             end
-        end
     end
 
 endmodule

@@ -24,35 +24,44 @@ module tt_um_processor (
 
     // Input and Output of
     wire [15:0] inst;       // 16-bit instruction input
+    wire [7:0] result;            // Result of the executed instruction
 
     // Connect pin to instruction
     assign inst [7:0]  = ui_in [7:0];    // Lower 8 bits are Input pins
     assign inst [15:8] = uio_in [7:0];   // Upper 8 bits are IO pins
 
 
-    // Signal declarations
-    wire [2:0] opcode;             // Opcode field of the instruction
-    wire [2:0] regw, reg1, reg2;       // Destination and source registers
-    wire [3:0] func;               // Function of the opcode
-    wire [3:0] reg_data1;   // Data from register 1
-    wire [3:0] reg_data2;   // Data from register 2
-    wire [7:0] alu_result;  // ALU output result
-    wire alu_zero;                 // ALU zero signal
-    wire regwrite; // Write the ALU data to  register
+  // Signal declarations
+  wire [1:0] opcode;             // Opcode field of the instruction
+  wire [2:0] regw, reg1, reg2;   // Destination and source registers
+  wire [3:0] func;               // Function of the opcode
+  wire func_i;                   // Function of the opcode
+  wire [3:0] reg_data1;   // Data from register 1
+  wire [3:0] reg_data2;   // Data from register 2
+  wire [7:0] alu_result;  // ALU output result
+  wire [3:0] imm; //Immediate value is stored 
+  wire alu_zero;                 // ALU zero signal
+  wire regwrite; // Write the ALU data to  register
+
+  // Instruction type detection
+  wire is_i_type = (opcode == 2'b01);
+  wire is_l_type = (opcode == 2'b10);
 
 
-    // Fields from the instruction
-    assign opcode      = inst[2:0];
-    assign func        = inst[6:3];
-    assign reg2        = inst[9:7];
-    assign reg1        = inst[12:10];
-    assign regw        = inst[15:13];
+  // Fields from the instruction
+  assign opcode      = inst[1:0];
+  assign func        = inst[5:2];
+  assign fun_i       = inst[6];
+  assign reg2        = inst[9:7];
+  assign imm         = inst[9:6];
+  assign reg1        = inst[12:10];
+  assign regw        = inst[15:13];
 
 
-    // ALU control signal based on func
-    wire [3:0] alu_control;
-    assign alu_control = func;
-    assign regwrite = (opcode == 3'b011);
+  // ALU control signal based on func
+  wire [3:0] alu_control;
+  assign alu_control = func;
+  assign regwrite = (opcode == 2'b11);
 
     // Instantiate the register file
     REG_FILE reg_file (
@@ -62,7 +71,7 @@ module tt_um_processor (
         .read_reg_num2(reg2),
         .write_reg(regw),
         .regwrite(regwrite),
-        .write_data(alu_result),
+        .write_data(is_l_type ? imm[3:0] : alu_result),
         .read_data1(reg_data1),
         .read_data2(reg_data2)
     );
@@ -71,13 +80,18 @@ module tt_um_processor (
     ALU alu_block (
         .alu_control(alu_control),
         .in1(reg_data1),
-        .in2(reg_data2),
+        .in2(is_i_type ? imm[3:0] : reg_data2),
         .alu_result(alu_result),
         .zero_flag(alu_zero)
     );
 
+    // Generate output result based on instruction type
+  assign result = (opcode == 2'b00 && func == 4'b0000) ? {(reg_data1[3] ? 4'b1111 : 4'b0000) , reg_data1} :
+                  (opcode == 2'b11) ? alu_result :
+                  8'b00000000;
+
     // Connect output
-    assign uo_out[7:0] = alu_result;
+    assign uo_out[7:0] = result[7:0];
     assign uio_out[0] = alu_zero;
   
 

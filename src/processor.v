@@ -51,7 +51,7 @@ module tt_um_processor (
   // Fields from the instruction
   assign opcode      = inst[1:0];
   assign func        = inst[5:2];
-  assign fun_i       = inst[6];
+  assign func_i       = inst[6];
   assign reg2        = inst[9:7];
   assign imm         = inst[9:6];
   assign reg1        = inst[12:10];

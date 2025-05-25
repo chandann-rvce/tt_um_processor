@@ -20,7 +20,8 @@ module tt_um_processor (
      
     // Assign Output Pins
     assign uio_oe  = 8'b00000000;
-    assign uio_out[7:1] = 7'd0;
+    //assign uio_out[7:1] = 7'd0;
+    assign uio_out[7:0] = 8'd0;
 
     // Input and Output of
     wire [15:0] inst;       // 16-bit instruction input
@@ -87,12 +88,14 @@ module tt_um_processor (
 
     // Generate output result based on instruction type
   assign result = (opcode == 2'b00 && func == 4'b0000) ? {(reg_data1[3] ? 4'b1111 : 4'b0000) , reg_data1} :
-                  (opcode == 2'b11) ? alu_result :
+                  (opcode == 2'b11 && func == 4'b0011 && func_i == 1'b0) ? {7'b0000000, alu_zero} :
+                  (opcode == 2'b11 && func == 4'b0011 && func_i == 1'b1) ? {7'b0000000, ~alu_zero} :
+                  (opcode == 2'b11 && func == 4'b0111 && func_i == 1'b0) ? alu_result :
                   8'b00000000;
 
     // Connect output
     assign uo_out[7:0] = result[7:0];
-    assign uio_out[0] = alu_zero;
+    //assign uio_out[0] = alu_zero;
   
 
 endmodule

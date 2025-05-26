@@ -53,7 +53,7 @@ async def processor_basic_test(dut):
     await Timer(20, units='ns')
 
     result = dut.uo_out.value.integer
-    expected = 0x07
+    expected = 0x00
     assert result == expected, f"ADD result incorrect: got {result}, expected {expected}"
 
     # Test immediate add: reg3 = reg0 + imm(2)

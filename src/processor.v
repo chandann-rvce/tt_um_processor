@@ -97,8 +97,8 @@ module tt_um_processor (
                   8'b00000000;
 
     // Connect output
-    assign uo_out[7:0] = result[7:0];
-    assign uio_out[0] = alu_zero;
+    assign uo_out[7:0] = (rst_n == 0) ? 8'd0 : result[7:0];
+    assign uio_out[0] = (rst_n == 0) ? 1'b0 : alu_zero;
   
 
 endmodule
